@@ -53,7 +53,7 @@ bool CreateLineCameraFile(  const IndexT camera_id,
         std::shared_ptr<openMVG::cameras::Pinhole_Intrinsic> pinhole_intrinsic(
           dynamic_cast<openMVG::cameras::Pinhole_Intrinsic * >(intrinsic->clone()));
         
-        came_line_ss << camera_id << " " << 
+        came_line_ss << camera_id + 1 << " " << 
           "SIMPLE_PINHOLE" << " " <<
           pinhole_intrinsic->w() << " " << 
           pinhole_intrinsic->h() << " " <<
@@ -69,7 +69,7 @@ bool CreateLineCameraFile(  const IndexT camera_id,
         std::shared_ptr<openMVG::cameras::Pinhole_Intrinsic_Radial_K1> pinhole_intrinsic_radial(
             dynamic_cast<openMVG::cameras::Pinhole_Intrinsic_Radial_K1 * >(intrinsic->clone()));
 
-        came_line_ss << camera_id << " " << 
+        came_line_ss << camera_id + 1 << " " <<
           "SIMPLE_RADIAL" << " " <<
           pinhole_intrinsic_radial->w() << " " << 
           pinhole_intrinsic_radial->h() << " " <<
@@ -86,7 +86,7 @@ bool CreateLineCameraFile(  const IndexT camera_id,
         std::shared_ptr<openMVG::cameras::Pinhole_Intrinsic_Radial_K3> pinhole_intrinsic_radial(
             dynamic_cast<openMVG::cameras::Pinhole_Intrinsic_Radial_K3 * >(intrinsic->clone()));
         
-        came_line_ss << camera_id << " " << 
+        came_line_ss << camera_id + 1 << " " <<
           "FULL_OPENCV" << " " <<
           pinhole_intrinsic_radial->w() << " " << 
           pinhole_intrinsic_radial->h() << " " <<
@@ -115,7 +115,7 @@ bool CreateLineCameraFile(  const IndexT camera_id,
         std::shared_ptr<openMVG::cameras::Pinhole_Intrinsic_Fisheye> pinhole_intrinsic_fisheye(
             dynamic_cast<openMVG::cameras::Pinhole_Intrinsic_Fisheye * >(intrinsic->clone()));
         
-        came_line_ss << camera_id << " " << 
+        came_line_ss << camera_id + 1 << " " <<
           "OPENCV_FISHEYE" << " " <<
           pinhole_intrinsic_fisheye->w() << " " << 
           pinhole_intrinsic_fisheye->h() << " " <<
@@ -176,7 +176,7 @@ bool CreateCameraFile( const SfM_Data & sfm_data,
   }
   for (auto const& camera_line: camera_lines)
   {
-    camera_file << camera_line << "\n";
+    camera_file << camera_line;
   }
   return true;
 }
@@ -258,7 +258,7 @@ bool CreateImageFile( const SfM_Data & sfm_data,
 
       // first line per image
       //IMAGE_ID, QW, QX, QY, QZ, TX, TY, TZ, CAMERA_ID, NAME
-      images_file << image_id << " "
+      images_file << image_id + 1 << " "
          << Qw << " "
          << Qx << " "
          << Qy << " "
@@ -266,7 +266,7 @@ bool CreateImageFile( const SfM_Data & sfm_data,
          << Tx << " "
          << Ty << " "
          << Tz << " "
-         << camera_id << " "
+         << camera_id + 1 << " "
          << image_name << " "     
          << "\n";
 
@@ -276,7 +276,7 @@ bool CreateImageFile( const SfM_Data & sfm_data,
       {
         images_file << std::get<0>(point2D) << " " << 
         std::get<1>(point2D) << " " <<
-        std::get<2>(point2D) << " ";
+        std::get<2>(point2D) + 1 << " ";
       }
       images_file << "\n";
     }
@@ -320,7 +320,7 @@ bool CreatePoint3DFile( const SfM_Data & sfm_data,
   {
     const Vec3 exportPoint = iterLandmarks->second.X;
     const IndexT point3d_id = iterLandmarks->first;
-    points3D_file << point3d_id << " "
+    points3D_file << point3d_id + 1 << " "
       << exportPoint.x() << " " 
       << exportPoint.y() << " " 
       << exportPoint.z() << " "
@@ -341,7 +341,7 @@ bool CreatePoint3DFile( const SfM_Data & sfm_data,
       const IndexT featId = itObs->second.id_feat;
 
       points3D_file << " " 
-      << viewId << " " 
+      << viewId + 1 << " "
       << featId;
     }
     points3D_file << "\n";

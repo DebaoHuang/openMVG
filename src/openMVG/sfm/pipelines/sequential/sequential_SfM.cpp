@@ -198,9 +198,9 @@ bool SequentialSfMReconstructionEngine::Process() {
     if (bImageAdded)
     {
       // Scene logging as ply for visual debug
-      std::ostringstream os;
+      /*std::ostringstream os;
       os << std::setw(8) << std::setfill('0') << resectionGroupIndex << "_Resection";
-      Save(sfm_data_, stlplus::create_filespec(sOut_directory_, os.str(), ".ply"), ESfM_Data(ALL));
+      Save(sfm_data_, stlplus::create_filespec(sOut_directory_, os.str(), ".ply"), ESfM_Data(ALL));*/
 
       // Perform BA until all point are under the given precision
       do
